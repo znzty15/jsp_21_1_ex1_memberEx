@@ -1,4 +1,4 @@
-<%@page import="java.sql.Timestamp"%>
+<%@ page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ page import="com.javaGG.ex.*"%>
@@ -21,7 +21,7 @@
    //MemberDAO dao = new MemberDAO();
    // int ri = dao.insertMember(dto);//ri값이 반환됨 성공1 실패 0
    
-   if(dao.confirmId(dto.getId()) == MemberDAO.MEMBER_EXISTENT){ 
+   if(dao.confirmId(dto.getId()) == 1){ 
    %>
    <script language="javascript">
       alert("입력하신 ID가 이미 존재합니다");
@@ -43,10 +43,7 @@
          </script>
    <%   
       } 
-   }
-   
-
-   
+   }  
    %>
 </body>
 </html>

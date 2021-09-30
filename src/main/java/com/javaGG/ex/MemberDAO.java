@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -62,7 +61,8 @@ public class MemberDAO {
 			}
 		}		
 		return ri;
-	}	
+	}
+	
 	
 	public int confirmId(String id) {
 		int ri = 0;
@@ -118,16 +118,20 @@ public class MemberDAO {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			
-			if(rs.next()) {				
-				dbPw = rs.getString("pw");				
+			if(rs.next()) {
+				
+				dbPw = rs.getString("pw");
+				
 				if(dbPw.equals(pw)) {
 					ri = MemberDAO.MEMBER_LOGIN_SUCCESS;//로그인 성공 1
 				} else {
 					ri = MemberDAO.MEMBER_LOGIN_PW_NO_GOOD;// 아이디는 있으나 비번이 틀림 0
 				}			
+			
 			} else {
 				ri = MemberDAO.MEMBER_LOGIN_IS_NOT;// 아이디가 없음. 회원이 아님 -1
 			}			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -144,7 +148,8 @@ public class MemberDAO {
 		return ri;
 	}
 	
-	public MemberDTO getMember(String id) {				
+	public MemberDTO getMember(String id) {		
+				
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -163,9 +168,11 @@ public class MemberDAO {
 				dto.setPw(rs.getString("pw"));
 				dto.setName(rs.getString("name"));
 				dto.setEmail(rs.getString("email"));
-				dto.setAddr(rs.getString("addr"));
+				dto.setAddr(rs.getString("address"));
 				dto.setRdate(rs.getTimestamp("rdate"));
-			}						
+			}
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -178,15 +185,18 @@ public class MemberDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}		
+		}
+		
 		return dto;
-	}	
+	}
+	
 	public int updateMember(MemberDTO dto) {
 		int ri = 0;
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String query = "update memberex set pw=?, email=?, addr=? where id=?";			
+		String query = "update memberex set pw=?, email=?, address=? where id=?";		
+		
 		
 		try {
 			conn = getConnection();
@@ -199,7 +209,8 @@ public class MemberDAO {
 			pstmt.setString(3, dto.getAddr());
 			pstmt.setString(4, dto.getId());
 			
-			ri = pstmt.executeUpdate();	//회원정보수정에 성공하면 ri=1 로 변경됨				
+			ri = pstmt.executeUpdate();	//회원정보수정에 성공하면 ri=1 로 변경됨
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -211,7 +222,7 @@ public class MemberDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}				
+		}		
 		return ri;
 		
 	}
@@ -232,7 +243,8 @@ public class MemberDAO {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}				
+		}
+				
 		return conn;
 	}
 }
