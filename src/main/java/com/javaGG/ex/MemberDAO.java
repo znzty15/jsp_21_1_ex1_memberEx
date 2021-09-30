@@ -2,6 +2,7 @@ package com.javaGG.ex;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.naming.Context;
@@ -28,7 +29,6 @@ public class MemberDAO {
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
 	    String query = "insert into memberex values(?, ?, ?, ?, ?)";
-	    //ResultSet rs = null;
 	    
 	    try {	    	
 	    	conn = getConnection();
@@ -57,7 +57,48 @@ public class MemberDAO {
 		return ri;
 	}
 	
+	//* 이미 있는 아이디를 생성할 때 안되게 DB를 확인하는 것
+	public int confirmId(String id) {  //* joinOk에서 호출할때 id값으로 불러온다
+		int ri = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "select id from memberex where id = ?";		
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			//아이디 유무 판단
+			if(rs.next()) { //rs에 값이 들어있으면 참 없으면 거짓
+				ri = MemberDAO.MEMBER_EXITSTMENT; //아이디가 있으면 1
+			} else {
+				ri = MemberDAO.MEMBER_NONEXITSTMENT; //아이디가 없으면 0
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return ri;
+	}
+	
 	private Connection getConnection() {
+		
 		Context context = null;
 		DataSource dataSource = null;
 		Connection conn = null;		
