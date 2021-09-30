@@ -1,12 +1,15 @@
 package com.javaGG.ex;
 
+import java.sql.Timestamp;
+
 public class MemberDTO {
-	
+
 	private String id;
 	private String pw;
 	private String name;
 	private String email;
-	private String addr;
+	private String address;
+	private Timestamp rdate;
 	
 	public String getId() {
 		return id;
@@ -33,16 +36,21 @@ public class MemberDTO {
 		this.email = email;
 	}
 	public String getAddr() {
-		return addr;
+		return address;
 	}
-	public void setAddr(String addr) {
-		this.addr = addr;
+	public void setAddr(String address) {
+		this.address = address;
 	}
-
+	public Timestamp getRdate() {
+		return rdate;
+	}
+	public void setRdate(Timestamp rdate) {
+		this.rdate = rdate;
+	}
+	
 //	public MemberDTO() {
 //		// TODO Auto-generated constructor stub
 //	}
-	
-	
 
+	
 }
