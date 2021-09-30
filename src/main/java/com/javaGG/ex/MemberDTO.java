@@ -8,7 +8,7 @@ public class MemberDTO {
 	private String pw;
 	private String name;
 	private String email;
-	private String address;
+	private String addr;
 	private Timestamp rdate;
 	
 	public String getId() {
@@ -36,10 +36,10 @@ public class MemberDTO {
 		this.email = email;
 	}
 	public String getAddr() {
-		return address;
+		return addr;
 	}
-	public void setAddr(String address) {
-		this.address = address;
+	public void setAddr(String addr) {
+		this.addr = addr;
 	}
 	public Timestamp getRdate() {
 		return rdate;

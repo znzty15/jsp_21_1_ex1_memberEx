@@ -4,11 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class MemberDAO {
@@ -165,7 +163,7 @@ public class MemberDAO {
 				dto.setPw(rs.getString("pw"));
 				dto.setName(rs.getString("name"));
 				dto.setEmail(rs.getString("email"));
-				dto.setAddr(rs.getString("address"));
+				dto.setAddr(rs.getString("addr"));
 				dto.setRdate(rs.getTimestamp("rdate"));
 			}						
 		} catch (Exception e) {
@@ -188,7 +186,7 @@ public class MemberDAO {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String query = "update memberex set pw=?, email=?, address=? where id=?";			
+		String query = "update memberex set pw=?, email=?, addr=? where id=?";			
 		
 		try {
 			conn = getConnection();

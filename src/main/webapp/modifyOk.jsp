@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.javaGG.ex.*" %>
+<%@ page import="com.javaGG.ex.*" %>
 <% request.setCharacterEncoding("UTF-8"); %>
+
 <jsp:useBean id="dto" class="com.javaGG.ex.MemberDTO" scope="page"/>
-<jsp:setProperty property="*" name="dto"/>
+<jsp:setProperty name="dto" property="*"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,19 +23,20 @@
 		
 		if(ri==1){
 	%>
-		<script language="javascript">
-			alert("회원정보수정이 완료되었습니다.");
-			document.location.href="main.jsp"
-		</script>
+			<script language="javascript">
+				alert("회원정보수정이 완료되었습니다.");
+				document.location.href="main.jsp"
+			</script>
 	<%	
 		} else {
 	%>
-		<script language="javascript">
-			alert("회원정보수정이 실패하였습니다.");
-			history.go(-1);
-		</script>
+			<script language="javascript">
+				alert("회원정보수정이 실패하였습니다.");
+				history.go(-1);
+			</script>
 	<%	
 		}
-	%>	
+	%>
+	
 </body>
 </html>
