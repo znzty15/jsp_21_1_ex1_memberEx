@@ -97,6 +97,90 @@ public class MemberDAO {
 		return ri;
 	}
 	
+	public int userCheck(String id, String pw) {
+		int ri = 0;
+		String dbpw; //DB에서 가져온 password
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "select pw from memberex where id = ?";		
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			//아이디 유무 판단
+			if(rs.next()) { //rs에 값이 들어있으면 참 없으면 거짓
+				
+				dbpw = rs.getString("pw"); //DB에서 pw 가져오기
+				
+				if(dbpw.equals(pw)) { //등록된 비번과 입력 비번이 같으면 
+					ri = MemberDAO.MEMBER_LOGIN_SUCCESS; //로그인 성공, 1 
+				} else {
+					ri = MemberDAO.MEMBER_LOGIN_PW_NO_GOOD;//비밀번호 불일치(로그인 실패), 0
+				}
+			} else {
+				ri = MemberDAO.MEMBER_LOGIN_ID_NOT; //아이디가 없음, 회원이 아님, -1
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return ri;
+	}
+	
+	public String getMemberName(String id) {
+		
+		String memberName = "";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "select name from memberex where id = ?";		
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) { //rs에 값이 들어있으면 참 없으면 거짓
+				memberName = rs.getString("name");//DB에서 name 가져오기
+			}
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return memberName;
+	}
+	
 	private Connection getConnection() {
 		
 		Context context = null;
