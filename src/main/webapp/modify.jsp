@@ -23,10 +23,10 @@
 		비밀번호 확인: <input type="password" name="pw_check" size="20"><br>
 		이름: <%= dto.getName() %></br>
 		이메일: <input type="text" name="email" size="30" value="<%= dto.getEmail() %>"><br>
-		주소: <input type="text" name="addr" size="60" value="<%= dto.getAddr() %>"><br>
+		주소: <input type="text" name="address" size="60" value="<%= dto.getAddress() %>"><br>
 		회원가입일 : <%= dto.getRdate() %></br>
 		<input type="button" value="수정" onclick="updateInfoConfirm()">
 		<input type="reset" value="취소" onclick="javascript:window.location='login.jsp'">	
-	</form>
+	</form> 
 </body>
 </html>

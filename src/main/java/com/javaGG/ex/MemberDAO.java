@@ -33,8 +33,8 @@ public class MemberDAO {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String query = "insert into memberex values (?,?,?,?,?,?)";
-		//ResultSet rs = null;		
+		String query = "insert into memberex values (?, ?, ?, ?, ?, ?)";
+		//ResultSet rs = null;
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(query);
@@ -43,11 +43,11 @@ public class MemberDAO {
 			pstmt.setString(2, dto.getPw());
 			pstmt.setString(3, dto.getName());
 			pstmt.setString(4, dto.getEmail());
-			pstmt.setString(5, dto.getAddr());
+			pstmt.setString(5, dto.getAddress());
 			pstmt.setTimestamp(6, dto.getRdate());
 			
 			pstmt.executeUpdate();
-			ri = MemberDAO.MEMBER_JOIN_SUCCESS;	
+			ri = MemberDAO.MEMBER_JOIN_SUCCESS;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public class MemberDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}		
+		}	
 		return ri;
 	}
 	
@@ -168,7 +168,7 @@ public class MemberDAO {
 				dto.setPw(rs.getString("pw"));
 				dto.setName(rs.getString("name"));
 				dto.setEmail(rs.getString("email"));
-				dto.setAddr(rs.getString("address"));
+				dto.setAddress(rs.getString("address"));
 				dto.setRdate(rs.getTimestamp("rdate"));
 			}
 			
@@ -205,8 +205,8 @@ public class MemberDAO {
 			//pstmt.setString(1, dto.getId());
 			pstmt.setString(1, dto.getPw());
 			//pstmt.setString(3, dto.getName());
-			pstmt.setString(2, dto.getEmail());
-			pstmt.setString(3, dto.getAddr());
+			pstmt.setString(2, dto.getEmail()); 
+			pstmt.setString(3, dto.getAddress()); 
 			pstmt.setString(4, dto.getId());
 			
 			ri = pstmt.executeUpdate();	//회원정보수정에 성공하면 ri=1 로 변경됨
@@ -226,9 +226,6 @@ public class MemberDAO {
 		return ri;
 		
 	}
-	
-	
-	
 	
 	private Connection getConnection() {
 		
